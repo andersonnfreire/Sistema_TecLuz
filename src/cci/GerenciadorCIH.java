@@ -12,6 +12,7 @@ import cih.JDCliFor;
 import cih.JDMateriais;
 import cih.JDPesquisarCliente;
 import cih.JDPesquisarFornecedor;
+import cih.JDVeiculo;
 import cih.JFramePrincipal;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
@@ -24,6 +25,7 @@ public final class GerenciadorCIH {
     // Objeto de Cadastro
     private JDCliFor objClienteFornecedor;
     private JDMateriais objMateriais;
+    private JDVeiculo objVeiculo;
     
     // Objeto de Pesquisar
     private JDPesquisarCliente objPesqCli;
@@ -45,6 +47,7 @@ public final class GerenciadorCIH {
         }
         objClienteFornecedor = null;
         objMateriais = null;
+        objVeiculo = null;
         objPesqCli = null;
         objPesqFor = null;
         objTelaPrincipal = null;
@@ -75,7 +78,11 @@ public final class GerenciadorCIH {
         objMateriais = new JDMateriais(null,true,this,true);
         objMateriais.setVisible(true);
     }
-    
+    public void janelaCadVeiculos()
+    {
+        objVeiculo = new JDVeiculo(null, true, this, true);
+        objVeiculo.setVisible(true);
+    }
     public void janelaPesqCliente()
     {
         if (objPesqCli == null)

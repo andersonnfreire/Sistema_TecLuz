@@ -198,7 +198,7 @@ public class JFramePrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_JMCadastrarMateriaisActionPerformed
 
     private void JMCadastrarVeiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JMCadastrarVeiculoActionPerformed
-       // gerCCI.janelaCadVeiculos();
+        gerCCI.janelaCadVeiculos();
     }//GEN-LAST:event_JMCadastrarVeiculoActionPerformed
 
     private void JMPesquisarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JMPesquisarClienteActionPerformed

@@ -2,6 +2,15 @@ package cih;
 
 import cci.GerenciadorCIH;
 import cdp.Veiculos;
+import java.awt.HeadlessException;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -17,8 +26,8 @@ public class JDVeiculo extends javax.swing.JDialog {
         gerCCI = ger;
         initComponents();
         this.flag = flag;
-    //    this.setResizable(false);
-    //    this.setLocationRelativeTo(null);
+        this.setResizable(false);
+        this.setLocationRelativeTo(null);
 
         if (flag == true) {
             btnConfirmar.setVisible(false);
@@ -29,10 +38,10 @@ public class JDVeiculo extends javax.swing.JDialog {
     }
 
     public JDVeiculo(javax.swing.JDialog parent, boolean modal, GerenciadorCIH ger, Boolean flag, Veiculos vei) {
-    //    this.setLocationRelativeTo(null);
+        this.setLocationRelativeTo(null);
         gerCCI = ger;
         initComponents();
-    //    this.setResizable(false);
+        this.setResizable(false);
         this.flag = flag;
         this.vei = vei;
 
@@ -232,11 +241,11 @@ public class JDVeiculo extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbLimparActionPerformed
-//        spinAno.setValue(0);
-//        txtModelo.setText("");
-//        txtMarca.setText("");
-//        txtPlaca.setText("");
-//        txtDataCompra.setText("");
+        spinAno.setValue(0);
+        txtModelo.setText("");
+        txtMarca.setText("");
+        txtPlaca.setText("");
+        txtDataCompra.setText("");
 
     }//GEN-LAST:event_jbLimparActionPerformed
 
@@ -245,7 +254,7 @@ public class JDVeiculo extends javax.swing.JDialog {
     }//GEN-LAST:event_jbAlterar2ActionPerformed
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
-      /*  try {
+        try {
             String modelo = txtModelo.getText();
             String marca = txtMarca.getText();
             int quant = (int)spinAno.getValue();
@@ -256,18 +265,18 @@ public class JDVeiculo extends javax.swing.JDialog {
             if (((JButton) evt.getSource()).getMnemonic() == 'N') {
 
                 int idVeiculo = gerCCI.getGerCDP().inserirVeiculo(modelo, marca, quant, placa, dataCompra);
-                JOptionPane.showMessageDialog(this, "Material " + idVeiculo + " inserido com sucesso.");
+                JOptionPane.showMessageDialog(this, "Veiculo " + idVeiculo + " inserido com sucesso.");
 
             } else {
-                int idVeiculo = gerCCI.getGerCDP().alterarVeiculo(vei.getCodigo(), modelo, marca, quant, placa, dataCompra);
-                JOptionPane.showMessageDialog(this, "Material " + idVeiculo + " alterado com sucesso.");
-
+                /*int idVeiculo = gerCCI.getGerCDP().alterarVeiculo(vei.getCodigo(), modelo, marca, quant, placa, dataCompra);
+                JOptionPane.showMessageDialog(this, "Veiculo " + idVeiculo + " alterado com sucesso.");
+                */
             }
         } catch (HeadlessException erro) {
             JOptionPane.showMessageDialog(this, "ERRO não previsto! " + erro.getMessage());
         } catch (ParseException | SQLException | ClassNotFoundException ex) {
             Logger.getLogger(JDVeiculo.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
+        }
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void jbCancelar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCancelar2ActionPerformed

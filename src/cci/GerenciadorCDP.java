@@ -8,6 +8,7 @@ import dao.GenericDAO;
 import cdp.Fisico;
 import cdp.Juridico;
 import cdp.Materiais;
+import cdp.Veiculos;
 import cih.JFramePrincipal;
 import java.sql.SQLException;
 import java.text.DateFormat;
@@ -127,7 +128,17 @@ public class GerenciadorCDP {
 
     }
     
-    
+    public int inserirVeiculo(String modelo,String marca,int quant,String placa, Date dataCompra)
+            throws SQLException, ClassNotFoundException {
+
+        //System.err.println("Dados :" + modelo + marca + quant + placa+dataCompra);
+        Veiculos objVei = new Veiculos(modelo, marca,quant,placa,dataCompra);
+
+        genDAO.inserir(objVei);
+
+        return objVei.getCodigo();
+
+    }
     
     
     
