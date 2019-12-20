@@ -190,7 +190,7 @@ public class JFramePrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_CadastrarClienteFornercedorActionPerformed
 
     private void JMCadastrarServicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JMCadastrarServicoActionPerformed
-        //gerCCI.janelaCadServico();
+        gerCCI.janelaCadServico();
     }//GEN-LAST:event_JMCadastrarServicoActionPerformed
 
     private void JMCadastrarMateriaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JMCadastrarMateriaisActionPerformed

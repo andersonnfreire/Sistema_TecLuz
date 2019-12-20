@@ -139,7 +139,17 @@ public class GerenciadorCDP {
         return objVei.getCodigo();
 
     }
-    
+    public int alterarVeiculo(int id, String modelo,String marca,int quant,String placa, Date dataCompra) 
+            throws SQLException, ClassNotFoundException {
+
+       Veiculos objVei = new Veiculos(modelo, marca,quant,placa,dataCompra);
+
+        genDAO.alterar(objVei);
+        return objVei.getCodigo();
+    }
+    public List pesquisarVeiculo(JTable tabela, String pesq) throws SQLException {
+       return genDAO.listar(Veiculos.class);
+    }
     
     
     public void pesquisarCliente(JTable tabela, String pesq) throws SQLException
@@ -190,17 +200,7 @@ public class GerenciadorCDP {
         return objVei.getCodigo();
 
     }
-    public int alterarVeiculo(int id, String modelo,String marca,int quant,String placa, Date dataCompra) 
-            throws SQLException, ClassNotFoundException {
-
-       Veiculos objVei = new Veiculos(modelo, marca,quant,placa,dataCompra);
-
-        genDAO.alterar(objVei);
-        return objVei.getCodigo();
-    }
-    public List pesquisarVeiculo(JTable tabela, String pesq) throws SQLException {
-       return genDAO.listar(Veiculos.class);
-    }
+    
     */
     public void carregarCombo( Class classe, JComboBox combo) {
         

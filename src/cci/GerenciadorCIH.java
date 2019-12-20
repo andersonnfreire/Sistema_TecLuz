@@ -12,6 +12,7 @@ import cih.JDCliFor;
 import cih.JDMateriais;
 import cih.JDPesquisarCliente;
 import cih.JDPesquisarFornecedor;
+import cih.JDServico;
 import cih.JDVeiculo;
 import cih.JFramePrincipal;
 import java.sql.SQLException;
@@ -26,6 +27,7 @@ public final class GerenciadorCIH {
     private JDCliFor objClienteFornecedor;
     private JDMateriais objMateriais;
     private JDVeiculo objVeiculo;
+    private JDServico objServico;
     
     // Objeto de Pesquisar
     private JDPesquisarCliente objPesqCli;
@@ -48,6 +50,8 @@ public final class GerenciadorCIH {
         objClienteFornecedor = null;
         objMateriais = null;
         objVeiculo = null;
+        objServico = null;
+        
         objPesqCli = null;
         objPesqFor = null;
         objTelaPrincipal = null;
@@ -82,6 +86,11 @@ public final class GerenciadorCIH {
     {
         objVeiculo = new JDVeiculo(null, true, this, true);
         objVeiculo.setVisible(true);
+    }
+    public void janelaCadServico()
+    {
+        objServico = new JDServico(null, true, this, true);
+        objServico.setVisible(true);
     }
     public void janelaPesqCliente()
     {

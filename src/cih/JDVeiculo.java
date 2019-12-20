@@ -268,9 +268,9 @@ public class JDVeiculo extends javax.swing.JDialog {
                 JOptionPane.showMessageDialog(this, "Veiculo " + idVeiculo + " inserido com sucesso.");
 
             } else {
-                /*int idVeiculo = gerCCI.getGerCDP().alterarVeiculo(vei.getCodigo(), modelo, marca, quant, placa, dataCompra);
+                int idVeiculo = gerCCI.getGerCDP().alterarVeiculo(vei.getCodigo(), modelo, marca, quant, placa, dataCompra);
                 JOptionPane.showMessageDialog(this, "Veiculo " + idVeiculo + " alterado com sucesso.");
-                */
+                
             }
         } catch (HeadlessException erro) {
             JOptionPane.showMessageDialog(this, "ERRO não previsto! " + erro.getMessage());
