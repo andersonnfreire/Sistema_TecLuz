@@ -8,6 +8,7 @@ import dao.GenericDAO;
 import cdp.Fisico;
 import cdp.Juridico;
 import cdp.Materiais;
+import cdp.Servico;
 import cdp.Veiculos;
 import cih.JFramePrincipal;
 import java.sql.SQLException;
@@ -150,7 +151,39 @@ public class GerenciadorCDP {
     public List pesquisarVeiculo(JTable tabela, String pesq) throws SQLException {
        return genDAO.listar(Veiculos.class);
     }
+
     
+    public int inserirServico(Fisico cli,String st,Veiculos veiculo,String distancia,Date dataEntrega,double valorTotal,String tipoServ)
+            throws SQLException, ClassNotFoundException {
+
+        Servico objServ = new Servico(cli, tipoServ, st, veiculo, dataEntrega, dataEntrega, distancia, distancia, valorTotal);
+  
+        genDAO.inserir(objServ);
+
+        return objServ.getCodigo();
+
+    }
+
+    public int alterarServico(int id, String nome, String CPF, String Sexo, Date dataNasc, String ramoTrabalho,
+            String email, String telefone, String logradouro, String complemento, String numero,
+            String bairro, String cidade, String estado, String cep) throws SQLException, ClassNotFoundException {
+
+        Endereco objEndereco = new Endereco(logradouro, complemento, numero, bairro, cidade, estado);
+        Cep objCep = new Cep(cep, objEndereco);
+        Fisico objCli = new Fisico(nome, CPF, Sexo, dataNasc, ramoTrabalho, email, telefone, objCep);
+
+        genDAO.alterar(objEndereco);
+        
+        genDAO.alterar(objCep);
+        
+        genDAO.alterar(objCli);
+        
+        
+        return objCli.getCodigo();
+    }
+    public List pesquisarServico(JTable tabela, String pesq) throws SQLException {
+        return genDAO.listar(Servico.class);
+    }
     
     public void pesquisarCliente(JTable tabela, String pesq) throws SQLException
     {

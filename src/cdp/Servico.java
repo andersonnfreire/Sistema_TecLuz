@@ -22,11 +22,9 @@ public class Servico implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int codigo;
     
-    @ManyToOne(fetch = FetchType.EAGER)
-    private Status sts;
+    private String status;
     
-    @ManyToOne(fetch = FetchType.EAGER )
-    private TipoServico ser;
+    private String tipServico;
     
     @ManyToOne(fetch = FetchType.EAGER)
     private Veiculos vei;
@@ -48,10 +46,10 @@ public class Servico implements Serializable{
         
     }
 
-    public Servico(int codigo,Fisico fis, TipoServico ser,Status sts, Veiculos vei,Date dataInicio, Date previsaoDataFim, String extensaoRede, String distancia, double valorTotal) {
+    public Servico(int codigo,Fisico fis, String ser,String sts, Veiculos vei,Date dataInicio, Date previsaoDataFim, String extensaoRede, String distancia, double valorTotal) {
         this.fis = fis;
-        this.ser = ser;
-        this.sts = sts;
+        this.tipServico = ser;
+        this.status = sts;
         this.vei = vei;
         this.codigo = codigo;
         this.dataInicio = dataInicio;
@@ -61,9 +59,10 @@ public class Servico implements Serializable{
         this.valorTotal = valorTotal;
     }
 
-    public Servico(Fisico fis, TipoServico ser,Status sts, Veiculos vei,Date dataInicio, Date previsaoDataFim, String extensaoRede, String distancia, double valorTotal) {
-        this.sts = sts;
-        this.ser = ser;
+    public Servico(Fisico fis, String ser,String sts, Veiculos vei,Date dataInicio, Date previsaoDataFim, String extensaoRede, String distancia, double valorTotal) {
+        
+        this.tipServico = ser;
+        this.status = sts;
         this.vei = vei;
         this.fis = fis;
         this.dataInicio = dataInicio;
@@ -71,6 +70,22 @@ public class Servico implements Serializable{
         this.extensaoRede = extensaoRede;
         this.distancia = distancia;
         this.valorTotal = valorTotal;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getTipServico() {
+        return tipServico;
+    }
+
+    public void setTipServico(String tipServico) {
+        this.tipServico = tipServico;
     }
 
     public int getCodigo() {
@@ -79,22 +94,6 @@ public class Servico implements Serializable{
 
     public void setCodigo(int codigo) {
         this.codigo = codigo;
-    }
-
-    public Status getSts() {
-        return sts;
-    }
-
-    public void setSts(Status sts) {
-        this.sts = sts;
-    }
-
-    public TipoServico getSer() {
-        return ser;
-    }
-
-    public void setSer(TipoServico ser) {
-        this.ser = ser;
     }
 
     public Veiculos getVei() {
@@ -153,7 +152,7 @@ public class Servico implements Serializable{
         this.valorTotal = valorTotal;
     }
     public Object[] toArray() {
-        return new Object[] {this, ser};
+        return new Object[] {this, tipServico};
     }
   
 }

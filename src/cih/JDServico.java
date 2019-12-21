@@ -3,9 +3,16 @@ package cih;
 import cci.GerenciadorCIH;
 import cdp.Fisico;
 import cdp.Servico;
-import cdp.Status;
-import cdp.TipoServico;
 import cdp.Veiculos;
+import java.awt.HeadlessException;
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -21,8 +28,8 @@ public class JDServico extends javax.swing.JDialog {
         gerCCI = ger;
         initComponents();
         this.flag = flag;
-    //    this.setResizable(false);
-   //     this.setLocationRelativeTo(null);
+        this.setResizable(false);
+        this.setLocationRelativeTo(null);
 
         rbNao.setSelected(true);
 
@@ -36,10 +43,10 @@ public class JDServico extends javax.swing.JDialog {
 
     public JDServico(javax.swing.JDialog parent, boolean modal,
             GerenciadorCIH ger, Boolean flag, Servico ser) {
-   //     this.setLocationRelativeTo(null);
+        this.setLocationRelativeTo(null);
         gerCCI = ger;
         initComponents();
-   //     this.setResizable(false);
+        this.setResizable(false);
         grupoExtensao.clearSelection();
         this.ser = ser;
         this.flag = flag;
@@ -51,12 +58,12 @@ public class JDServico extends javax.swing.JDialog {
             btnNovo.setVisible(false);
         }
         cmbCliente.setSelectedItem(ser.getFis());
-        cmbTipoServico.setSelectedItem(ser.getSer().toString());
+        cmbTipoServico.setSelectedItem(ser.getTipServico());
         cmbVeiculo.setSelectedItem(ser.getVei());
         txtDataInicio.setText(ser.getDataInicio().toString());
         txtDataEntrega.setText(ser.getPrevisaoDataFim().toString());
         txtDistancia.setText(ser.getDistancia());
-        cmbStatus.setSelectedItem(ser.getSts());
+        cmbStatus.setSelectedItem(ser.getStatus());
     }
 
     @SuppressWarnings("unchecked")
@@ -113,6 +120,11 @@ public class JDServico extends javax.swing.JDialog {
         jLabel2.setText("Tipo de Serviço");
 
         cmbTipoServico.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Formatação", "Backup", "Instalação" }));
+        cmbTipoServico.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbTipoServicoActionPerformed(evt);
+            }
+        });
 
         jLabel4.setText("Data de Inicio");
 
@@ -350,13 +362,13 @@ public class JDServico extends javax.swing.JDialog {
     }//GEN-LAST:event_jbLimparActionPerformed
 
     private void cmbStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbStatusActionPerformed
-        // TODO add your handling code here:
+        cmbStatus.setSelectedIndex(cmbStatus.getSelectedIndex());
     }//GEN-LAST:event_cmbStatusActionPerformed
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
-       /* try {
+        try {
             Fisico nomeCliente = (Fisico) cmbCliente.getSelectedItem();
-            Status status = (Status) cmbStatus.getSelectedItem();
+            String status = (String) cmbStatus.getSelectedItem();
             Veiculos veiculo = (Veiculos) cmbVeiculo.getSelectedItem();
             String Distancia = txtDistancia.getText();
             
@@ -375,23 +387,23 @@ public class JDServico extends javax.swing.JDialog {
             
             double valorTotal = Double.parseDouble(txtValorTotal.getText());
             
-            TipoServico tipoServico = (TipoServico) cmbTipoServico.getSelectedItem();
+            String tipoServico = (String) cmbTipoServico.getSelectedItem();
             
             
             if (((JButton) evt.getSource()).getMnemonic() == 'N') {
-                int idServico = gerCCI.getGerCDP().inserirServico(nomeCliente, tipoServico, status, veiculo, dataInicio, dataEntrega, extensao, Distancia, valorTotal);
+                int idServico = gerCCI.getGerCDP().inserirServico(nomeCliente, status, veiculo, Distancia, dataEntrega, valorTotal, tipoServico);
                 JOptionPane.showMessageDialog(this, "Servico " + idServico + " inserido com sucesso.");
 
             } else {
-                int idServico = gerCCI.getGerCDP().alterarServico(ser.getCodigo(), nomeCliente, tipoServico, status, veiculo, dataInicio, dataEntrega, extensao, Distancia, valorTotal);
-                JOptionPane.showMessageDialog(this, "Material " + idServico + " alterado com sucesso.");
+                //int idServico = gerCCI.getGerCDP().alterarServico(ser.getCodigo(), nomeCliente, tipoServico, status, veiculo, dataInicio, dataEntrega, extensao, Distancia, valorTotal);
+                //JOptionPane.showMessageDialog(this, "Material " + idServico + " alterado com sucesso.");
 
             }
         } catch (SQLException | ClassNotFoundException | HeadlessException erro) {
             JOptionPane.showMessageDialog(this, "ERRO não previsto! " + erro.getMessage());
         } catch (ParseException ex) {
             Logger.getLogger(JDServico.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
+        }
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void txtDistanciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDistanciaActionPerformed
@@ -404,18 +416,22 @@ public class JDServico extends javax.swing.JDialog {
 
     private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
         gerCCI.getGerCDP().carregarCombo(Fisico.class, cmbCliente);
-        gerCCI.getGerCDP().carregarCombo(TipoServico.class, cmbTipoServico);
+        
         gerCCI.getGerCDP().carregarCombo(Veiculos.class, cmbVeiculo);
-        gerCCI.getGerCDP().carregarCombo(Status.class, cmbStatus);
+
 
         if (this.flag == false)
         {
             cmbCliente.setSelectedItem(ser.getFis());
-            cmbTipoServico.setSelectedItem(ser.getSer());
+ 
             cmbVeiculo.setSelectedItem(ser.getVei());
-            cmbStatus.setSelectedItem(ser.getSts());
+
         }
     }//GEN-LAST:event_formComponentShown
+
+    private void cmbTipoServicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTipoServicoActionPerformed
+        cmbTipoServico.setSelectedIndex(cmbTipoServico.getSelectedIndex());
+    }//GEN-LAST:event_cmbTipoServicoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

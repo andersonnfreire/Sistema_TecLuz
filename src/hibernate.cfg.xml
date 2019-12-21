@@ -18,8 +18,6 @@
     <mapping class="cdp.Veiculos"/>
     <mapping class="cdp.Materiais" />
     <mapping class="cdp.Servico" />
-    <mapping class="cdp.TipoServico" />
-    <mapping class="cdp.Status" />
 
   </session-factory>
 </hibernate-configuration>
