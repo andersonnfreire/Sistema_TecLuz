@@ -30,7 +30,7 @@ public class FornecedorDAO {
             Criteria consulta;
             consulta = sessao.createCriteria(Juridico.class);
 
-            consulta.add(Restrictions.like("cnjp", "%" + nomePesq + "%"));
+            consulta.add(Restrictions.like("CNPJ", "%" + nomePesq + "%"));
             lista = consulta.list();
 
             sessao.getTransaction().commit();

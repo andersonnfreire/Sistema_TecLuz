@@ -66,7 +66,6 @@ public class GenericDAO {
 
     public Object get(Class classe, Serializable id) throws SQLException {
 
-        List lista;
         Session sessao;
 
         sessao = hibernate.ConexaoHibernate.getSessionFactory().openSession();

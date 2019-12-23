@@ -22,12 +22,12 @@ public class ClienteDAO extends GenericDAO
         
         Criteria cons = sessao.createCriteria(Fisico.class);
         
-        cons.add(  Restrictions.like("cnpj", pesq + "%" )  );
+        cons.add(  Restrictions.like("nome", pesq + "%" )  );
 
         // cons.add( Restrictions.sqlRestriction( "nome like '" + pesq + "%'" )  );
         
-        cons.addOrder( Order.asc("cnpj") );
-        cons.addOrder( Order.asc("razaosocial") );
+        cons.addOrder( Order.asc("nome") );
+        cons.addOrder( Order.asc("CPF") );
    
         List lista = cons.list();
         

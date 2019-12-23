@@ -108,7 +108,7 @@ public class Materiais implements Serializable {
     {
         return new Object[]
         {
-            this, getNome(), this, 
+            this,getMarca(),getQuantidade_estoque(),getValorCusto(),getJur()
         };
     }
 

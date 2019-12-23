@@ -11,6 +11,10 @@ import cdp.Materiais;
 import cdp.Servico;
 import cdp.Veiculos;
 import cih.JFramePrincipal;
+import dao.FornecedorDAO;
+import dao.MateriaisDAO;
+import dao.ServicoDAO;
+import dao.VeiculoDAO;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -30,14 +34,22 @@ public class GerenciadorCDP {
 
     GenericDAO genDAO;
     ClienteDAO cliDAO;
+    FornecedorDAO forDAO;
+    VeiculoDAO veiDAO;
+    MateriaisDAO matDAO;
+    ServicoDAO serDAO;
 
     public GerenciadorCDP() throws ClassNotFoundException, SQLException {
 
         genDAO = new GenericDAO();
         cliDAO = new ClienteDAO();
-      
+        forDAO = new FornecedorDAO();
+        veiDAO = new VeiculoDAO();
+        matDAO = new MateriaisDAO();
+        serDAO = new ServicoDAO();
     }
- 
+    
+    // INSERIR, ALTERAR, PESQUISAR o CLIENTE FISICO
     public int inserirPessoaF(String nome, String CPF, String Sexo, Date dataNasc, String ramoTrabalho,
             String email, String telefone, String logradouro, String complemento, String numero,
             String bairro, String cidade, String estado, String cep)
@@ -74,10 +86,28 @@ public class GerenciadorCDP {
         
         return objCli.getCodigo();
     }
-    public List pesquisarPessoaF(JTable tabela, String pesq) throws SQLException {
-        return genDAO.listar(Fisico.class);
+   
+    public void pesquisarCliente(JTable tabela, String pesq) throws SQLException
+    {
+
+        List lista = null;
+        Fisico fisico;
+
+        // APAGAR a TABELA
+        ((DefaultTableModel) tabela.getModel()).setRowCount(0);
+
+        lista = cliDAO.pesquisarPorNome(pesq);
+
+        Iterator<Fisico> it = lista.iterator();
+        while (it.hasNext())
+        {
+            fisico = it.next();
+            ((DefaultTableModel) tabela.getModel()).addRow(fisico.toArray());
+        }
     }
-  
+    
+    
+    // INSERIR, ALTERAR, PESQUISAR o CLIENTE JURIDICO
     public int inserirPessoaJ(String CNPJ,String razaoSocial,
             String email, String telefone, String logradouro, String complemento, String numero,
             String bairro, String cidade, String estado, String cep)
@@ -114,9 +144,27 @@ public class GerenciadorCDP {
         genDAO.alterar(objCliJ);
         return objCliJ.getCodigo();
     }
-    public List pesquisarPessoaJ(JTable tabela, String pesq) throws SQLException {
-       return genDAO.listar(Juridico.class);
+   
+    public void pesquisarClienteJuridico(JTable tabela, String pesq) throws SQLException
+    {
+
+        List lista = null;
+        Juridico juridico;
+
+        // APAGAR a TABELA
+        ((DefaultTableModel) tabela.getModel()).setRowCount(0);
+
+        lista = forDAO.pesquisarNome(pesq);
+
+        Iterator<Juridico> it = lista.iterator();
+        while (it.hasNext())
+        {
+            juridico = it.next();
+            ((DefaultTableModel) tabela.getModel()).addRow(juridico.toArray());
+        }
     }
+    
+ 
     public int inserirMaterial(String nome,String marca,int quantidade,double valorCusto,Juridico juridico)
             throws SQLException, ClassNotFoundException {
 
@@ -126,8 +174,27 @@ public class GerenciadorCDP {
         genDAO.inserir(mat);
 
         return mat.getCodigo();
-
     }
+    
+    public void pesquisarMaterial(JTable tabela, String pesq) throws SQLException
+    {
+
+        List lista = null;
+        Materiais material;
+
+        // APAGAR a TABELA
+        ((DefaultTableModel) tabela.getModel()).setRowCount(0);
+
+        lista = matDAO.pesquisarPorNome(pesq);
+
+        Iterator<Materiais> it = lista.iterator();
+        while (it.hasNext())
+        {
+            material = it.next();
+            ((DefaultTableModel) tabela.getModel()).addRow(material.toArray());
+        }
+    }
+    
     
     public int inserirVeiculo(String modelo,String marca,int quant,String placa, Date dataCompra)
             throws SQLException, ClassNotFoundException {
@@ -148,10 +215,24 @@ public class GerenciadorCDP {
         genDAO.alterar(objVei);
         return objVei.getCodigo();
     }
-    public List pesquisarVeiculo(JTable tabela, String pesq) throws SQLException {
-       return genDAO.listar(Veiculos.class);
-    }
+    public void pesquisarVeiculo(JTable tabela, String pesq) throws SQLException
+    {
 
+        List lista = null;
+        Veiculos veiculo;
+
+        // APAGAR a TABELA
+        ((DefaultTableModel) tabela.getModel()).setRowCount(0);
+
+        lista = veiDAO.pesquisarPorNome(pesq);
+
+        Iterator<Veiculos> it = lista.iterator();
+        while (it.hasNext())
+        {
+            veiculo = it.next();
+            ((DefaultTableModel) tabela.getModel()).addRow(veiculo.toArray());
+        }
+    }
     
     public int inserirServico(Fisico cli,String st,Veiculos veiculo,String distancia,Date dataEntrega,double valorTotal,String tipoServ)
             throws SQLException, ClassNotFoundException {
@@ -181,28 +262,26 @@ public class GerenciadorCDP {
         
         return objCli.getCodigo();
     }
-    public List pesquisarServico(JTable tabela, String pesq) throws SQLException {
-        return genDAO.listar(Servico.class);
-    }
     
-    public void pesquisarCliente(JTable tabela, String pesq) throws SQLException
+    public void pesquisarServico(JTable tabela, int pesq) throws SQLException
     {
 
         List lista = null;
-        Fisico fisico;
+        Servico serv;
 
         // APAGAR a TABELA
         ((DefaultTableModel) tabela.getModel()).setRowCount(0);
 
-        lista = cliDAO.pesquisarPorNome(pesq);
+        lista = serDAO.pesquisarPorCodigo(pesq);
 
-        Iterator<Fisico> it = lista.iterator();
+        Iterator<Servico> it = lista.iterator();
         while (it.hasNext())
         {
-            fisico = it.next();
-            ((DefaultTableModel) tabela.getModel()).addRow(fisico.toArray());
+            serv = it.next();
+            ((DefaultTableModel) tabela.getModel()).addRow(serv.toArray());
         }
     }
+   
      public List listarClientes() throws SQLException
     {
         return genDAO.listar(Fisico.class);

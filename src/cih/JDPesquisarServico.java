@@ -19,7 +19,7 @@ public class JDPesquisarServico extends javax.swing.JDialog {
     private GerenciadorCIH gerCCI;
     private Servico ser;
     public JDPesquisarServico(java.awt.Frame parent, boolean modal,GerenciadorCIH ger) {
-    //    this.setLocationRelativeTo(null);
+        this.setLocationRelativeTo(null);
         gerCCI = ger;
         initComponents();
         ser = null;
@@ -37,7 +37,7 @@ public class JDPesquisarServico extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabServico = new javax.swing.JTable();
-        txtCliente = new javax.swing.JTextField();
+        txtCodigo = new javax.swing.JTextField();
         btnPesquisarServico = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -46,7 +46,7 @@ public class JDPesquisarServico extends javax.swing.JDialog {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Ordem de Serviço"));
 
-        jLabel1.setText("Cliente");
+        jLabel1.setText("Código");
 
         tabServico.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -78,7 +78,7 @@ public class JDPesquisarServico extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
-                .addComponent(txtCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 223, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnPesquisarServico)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -92,7 +92,7 @@ public class JDPesquisarServico extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(txtCliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnPesquisarServico))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -129,15 +129,16 @@ public class JDPesquisarServico extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPesquisarServicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarServicoActionPerformed
+        int codigo = Integer.parseInt(txtCodigo.getText());
         try {
-            gerCCI.getGerCDP().pesquisarPessoaF(tabServico, txtCliente.getText());
+            gerCCI.getGerCDP().pesquisarServico(tabServico,codigo);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, ex, "ERRO", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnPesquisarServicoActionPerformed
 
     private void tabServicoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabServicoMouseClicked
-       /*int linha = tabServico.getSelectedRow();
+       int linha = tabServico.getSelectedRow();
         try {
             ser = (Servico) tabServico.getValueAt(linha, 0);
             this.setVisible(false);
@@ -145,7 +146,7 @@ public class JDPesquisarServico extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "ERRO", JOptionPane.ERROR_MESSAGE);
         }
 
-        gerCCI.carregarAlterarServico(ser);*/
+        //gerCCI.carregarAlterarServico(ser);
     }//GEN-LAST:event_tabServicoMouseClicked
 
     /**
@@ -159,6 +160,6 @@ public class JDPesquisarServico extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tabServico;
-    private javax.swing.JTextField txtCliente;
+    private javax.swing.JTextField txtCodigo;
     // End of variables declaration//GEN-END:variables
 }

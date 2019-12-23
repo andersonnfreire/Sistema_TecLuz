@@ -140,7 +140,7 @@ public class JDPesquisarFornecedor extends javax.swing.JDialog {
     private void btnPesquisarFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarFornecedorActionPerformed
         try
         {
-            gerCCI.getGerCDP().pesquisarPessoaJ(tabPesquisarFornecedor, txtCNPJ.getText());
+            gerCCI.getGerCDP().pesquisarClienteJuridico(tabPesquisarFornecedor, txtCNPJ.getText());
         } catch (SQLException ex)
         {
             JOptionPane.showMessageDialog(this, ex, "ERRO", JOptionPane.ERROR_MESSAGE);
@@ -158,7 +158,7 @@ public class JDPesquisarFornecedor extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "ERRO", JOptionPane.ERROR_MESSAGE);
         }
 
-        gerCCI.carregarAlterarFornecedor(null,JuridicoSelecionado);
+        gerCCI.carregarAlterarFornecedor(JuridicoSelecionado);
     }//GEN-LAST:event_tabPesquisarFornecedorMouseClicked
 
     /**

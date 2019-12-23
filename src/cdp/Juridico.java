@@ -55,7 +55,7 @@ public class Juridico extends Pessoa {
     {
         return new Object[]
         {
-            this, getCNPJ(), this, 
+            this, getCNPJ(), this,getRazaoSocial()
         };
     }
     

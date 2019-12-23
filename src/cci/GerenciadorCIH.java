@@ -12,6 +12,9 @@ import cih.JDCliFor;
 import cih.JDMateriais;
 import cih.JDPesquisarCliente;
 import cih.JDPesquisarFornecedor;
+import cih.JDPesquisarMaterial;
+import cih.JDPesquisarServico;
+import cih.JDPesquisarVeiculo;
 import cih.JDServico;
 import cih.JDVeiculo;
 import cih.JFramePrincipal;
@@ -32,6 +35,9 @@ public final class GerenciadorCIH {
     // Objeto de Pesquisar
     private JDPesquisarCliente objPesqCli;
     private JDPesquisarFornecedor objPesqFor;
+    private JDPesquisarVeiculo objPesqVeiculo;
+    private JDPesquisarMaterial objPesqMaterial;
+    private JDPesquisarServico objPesqServico;
     private JFramePrincipal objTelaPrincipal;
     private ClasseErro objClasseErro;
    
@@ -54,6 +60,10 @@ public final class GerenciadorCIH {
         
         objPesqCli = null;
         objPesqFor = null;
+        objPesqVeiculo = null;
+        objPesqMaterial = null;
+        objPesqServico = null;
+        
         objTelaPrincipal = null;
     }
 
@@ -108,13 +118,37 @@ public final class GerenciadorCIH {
         }
         objPesqFor.setVisible(true);
     }
+    public void janelaPesqVeiculo()
+    {
+        if(objPesqVeiculo == null)
+        {
+            objPesqVeiculo = new JDPesquisarVeiculo(null, true, this);
+        }
+        objPesqVeiculo.setVisible(true);
+    }
+    public void janelaPesqMaterial()
+    {
+        if(objPesqMaterial == null)
+        {
+            objPesqMaterial = new JDPesquisarMaterial(null, true, this);
+        }
+        objPesqMaterial.setVisible(true);
+    }
+    public void janelaPesqServico()
+    {
+        if(objPesqServico == null)
+        {
+            objPesqServico = new JDPesquisarServico(null, true, this);
+        }
+        objPesqServico.setVisible(true);
+    }
     
-    public void carregarAlterarCliente(Fisico fisico,Juridico jurid)
+    public void carregarAlterarCliente(Fisico fisico)
     {
         objClienteFornecedor = new JDCliFor(null, true, this, false,fisico,null);
         objClienteFornecedor.setVisible(true);
     }
-    public void carregarAlterarFornecedor(Fisico fisico,Juridico juridico)
+    public void carregarAlterarFornecedor(Juridico juridico)
     {
         objClienteFornecedor = new JDCliFor(null, true, this,false,null,juridico );
         objClienteFornecedor.setVisible(true);

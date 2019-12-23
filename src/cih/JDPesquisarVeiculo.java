@@ -127,14 +127,14 @@ public class JDPesquisarVeiculo extends javax.swing.JDialog {
 
     private void jbPesquisarVeiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbPesquisarVeiculoActionPerformed
         try {
-            gerCCI.getGerCDP().pesquisarPessoaF(tabVeiculo, txtModelo.getText());
+            gerCCI.getGerCDP().pesquisarVeiculo(tabVeiculo, txtModelo.getText());
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, ex, "ERRO", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jbPesquisarVeiculoActionPerformed
 
     private void tabVeiculoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabVeiculoMouseClicked
-        /*int linha = tabVeiculo.getSelectedRow();
+        int linha = tabVeiculo.getSelectedRow();
         try {
             vei = (Veiculos) tabVeiculo.getValueAt(linha, 0);
             this.setVisible(false);
@@ -142,7 +142,7 @@ public class JDPesquisarVeiculo extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "ERRO", JOptionPane.ERROR_MESSAGE);
         }
 
-        gerCCI.carregarAlterarVeiculo(vei);*/
+        //gerCCI.carregarAlterarVeiculo(vei);
     }//GEN-LAST:event_tabVeiculoMouseClicked
 
     /**

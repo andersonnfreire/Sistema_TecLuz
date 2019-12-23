@@ -97,7 +97,7 @@ public class Fisico extends Pessoa {
     {
         return new Object[]
         {
-            this, CPF, getDataNasc()
+            this, CPF, getDataNasc(),getRamoTrabalho()
         };
     }
 }

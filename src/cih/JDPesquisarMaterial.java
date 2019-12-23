@@ -7,6 +7,8 @@ package cih;
 
 import cci.GerenciadorCIH;
 import cdp.Materiais;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -133,17 +135,17 @@ public class JDPesquisarMaterial extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbPesquisarMaterialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbPesquisarMaterialActionPerformed
-        /*try
+        try
         {
             gerCCI.getGerCDP().pesquisarMaterial(tabMaterial, txtNome.getText());
         } catch (SQLException ex)
         {
             JOptionPane.showMessageDialog(this, ex, "ERRO", JOptionPane.ERROR_MESSAGE);
-        }*/
+        }
     }//GEN-LAST:event_jbPesquisarMaterialActionPerformed
 
     private void tabMaterialMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabMaterialMouseClicked
-        /*int linha = tabMaterial.getSelectedRow();
+        int linha = tabMaterial.getSelectedRow();
 
         try
         {
@@ -154,7 +156,7 @@ public class JDPesquisarMaterial extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "ERRO", JOptionPane.ERROR_MESSAGE);
         }
         
-        gerCCI.carregarAlterarMateriais(mate);*/
+        //gerCCI.carregarAlterarMateriais(mate);
     }//GEN-LAST:event_tabMaterialMouseClicked
 
     /**

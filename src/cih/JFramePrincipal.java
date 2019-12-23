@@ -15,16 +15,13 @@ import cdp.Venda;
  */
 public class JFramePrincipal extends javax.swing.JFrame {
 
-    private GerenciadorCIH gerCCI;
-    private Venda venda;
-    private Materiais mate;
-    private Boolean flag;
+    private final GerenciadorCIH gerCCI;
+
 
     
     public JFramePrincipal(java.awt.Frame parent,boolean modal, GerenciadorCIH ger,Boolean flag) {
         gerCCI = ger;
-        initComponents();
-        this.flag = flag;   
+        initComponents();  
     }
 
     /**
@@ -45,18 +42,12 @@ public class JFramePrincipal extends javax.swing.JFrame {
         JMCadastrarServico = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         JMPesquisarCliente = new javax.swing.JMenuItem();
-        JMPesquisarPedido = new javax.swing.JMenuItem();
         JMPesquisarMateriais = new javax.swing.JMenuItem();
         JMPesquisarServico = new javax.swing.JMenuItem();
         JMPesquisarVeiculo = new javax.swing.JMenuItem();
         menuFornecedor = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        addComponentListener(new java.awt.event.ComponentAdapter() {
-            public void componentShown(java.awt.event.ComponentEvent evt) {
-                formComponentShown(evt);
-            }
-        });
 
         jPanel1.setBackground(java.awt.Color.red);
         jPanel1.setBorder(new javax.swing.border.MatteBorder(null));
@@ -120,14 +111,6 @@ public class JFramePrincipal extends javax.swing.JFrame {
             }
         });
         jMenu2.add(JMPesquisarCliente);
-
-        JMPesquisarPedido.setText("Pedido");
-        JMPesquisarPedido.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                JMPesquisarPedidoActionPerformed(evt);
-            }
-        });
-        jMenu2.add(JMPesquisarPedido);
 
         JMPesquisarMateriais.setText("Materiais");
         JMPesquisarMateriais.addActionListener(new java.awt.event.ActionListener() {
@@ -202,31 +185,23 @@ public class JFramePrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_JMCadastrarVeiculoActionPerformed
 
     private void JMPesquisarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JMPesquisarClienteActionPerformed
-       // gerCCI.janelaPesqCliente();
+        gerCCI.janelaPesqCliente();
     }//GEN-LAST:event_JMPesquisarClienteActionPerformed
 
-    private void JMPesquisarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JMPesquisarPedidoActionPerformed
-      // gerCCI.janelaPesqPedido();
-    }//GEN-LAST:event_JMPesquisarPedidoActionPerformed
-
     private void JMPesquisarMateriaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JMPesquisarMateriaisActionPerformed
-      // gerCCI.janelaPesqMaterial();
+       gerCCI.janelaPesqMaterial();
     }//GEN-LAST:event_JMPesquisarMateriaisActionPerformed
 
     private void JMPesquisarServicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JMPesquisarServicoActionPerformed
-      // gerCCI.janelaPesqServico();
+       gerCCI.janelaPesqServico();
     }//GEN-LAST:event_JMPesquisarServicoActionPerformed
 
     private void JMPesquisarVeiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JMPesquisarVeiculoActionPerformed
-      // gerCCI.janelaPesqVeiculo();
+       gerCCI.janelaPesqVeiculo();
     }//GEN-LAST:event_JMPesquisarVeiculoActionPerformed
 
-    private void formComponentShown(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentShown
-     
-    }//GEN-LAST:event_formComponentShown
-
     private void menuFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuFornecedorActionPerformed
-         gerCCI.janelaPesqFor();
+       gerCCI.janelaPesqFor();
     }//GEN-LAST:event_menuFornecedorActionPerformed
 
 
@@ -237,7 +212,6 @@ public class JFramePrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem JMCadastrarVeiculo;
     private javax.swing.JMenuItem JMPesquisarCliente;
     private javax.swing.JMenuItem JMPesquisarMateriais;
-    private javax.swing.JMenuItem JMPesquisarPedido;
     private javax.swing.JMenuItem JMPesquisarServico;
     private javax.swing.JMenuItem JMPesquisarVeiculo;
     private javax.swing.JMenu jMenu1;

@@ -103,7 +103,7 @@ public class Veiculos implements Serializable {
     {
         return new Object[]
         {
-            this, getModelo(), this, 
+            this,getMarca(),getAno(),getPlaca()
         };
     }
     

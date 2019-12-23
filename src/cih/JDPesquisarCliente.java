@@ -20,7 +20,7 @@ public class JDPesquisarCliente extends javax.swing.JDialog {
     private Fisico fisico;
 
     public JDPesquisarCliente(java.awt.Frame parent, boolean modal, GerenciadorCIH ger) {
- //       this.setLocationRelativeTo(null);
+        this.setLocationRelativeTo(null);
         gerCCI = ger;
         initComponents();
         fisico = null;
@@ -73,6 +73,11 @@ public class JDPesquisarCliente extends javax.swing.JDialog {
         jScrollPane1.setViewportView(tabPesquisarCliente);
 
         btnPesquisarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/search.png"))); // NOI18N
+        btnPesquisarCliente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                PesquisarCliente(evt);
+            }
+        });
         btnPesquisarCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPesquisarClienteActionPerformed(evt);
@@ -140,7 +145,9 @@ public class JDPesquisarCliente extends javax.swing.JDialog {
 
     private void btnPesquisarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarClienteActionPerformed
         try {
-            gerCCI.getGerCDP().pesquisarPessoaF(tabPesquisarCliente, txtNome.getText());         
+            
+       
+            gerCCI.getGerCDP().pesquisarCliente(tabPesquisarCliente, txtNome.getText());
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, ex, "ERRO", JOptionPane.ERROR_MESSAGE);
         }
@@ -158,8 +165,12 @@ public class JDPesquisarCliente extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "ERRO", JOptionPane.ERROR_MESSAGE);
         }
         
-        gerCCI.carregarAlterarCliente(fisico,null);
+        //gerCCI.carregarAlterarCliente(fisico);
     }//GEN-LAST:event_tabPesquisarClienteMouseClicked
+
+    private void PesquisarCliente(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PesquisarCliente
+        // TODO add your handling code here:
+    }//GEN-LAST:event_PesquisarCliente
 
     /**
      * @param args the command line arguments
