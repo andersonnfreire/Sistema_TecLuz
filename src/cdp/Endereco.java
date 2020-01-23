@@ -28,16 +28,6 @@ public class Endereco implements Serializable
         
     }
 
-    public Endereco(int codigo, String logradouro,String complemento, String numero, String bairro, String cidade, String estado) {
-        this.codigo = codigo;
-        this.logradouro = logradouro;
-        this.complemento = complemento;
-        this.numero = numero;
-        this.bairro = bairro;
-        this.cidade = cidade;
-        this.estado = estado;
-    }
-
     public Endereco(String logradouro,String complemento, String numero, String bairro, 
             String cidade, String estado)
     {
@@ -124,6 +114,12 @@ public class Endereco implements Serializable
         return codigo + "," + logradouro + "," + numero + "," + bairro + "," + cidade + "," + estado;
     }
     
-    
+    public Object[] toArray()
+    {
+        return new Object[]
+        {
+            this, getCodigo()
+        };
+    }
     
 }

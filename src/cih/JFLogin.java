@@ -5,17 +5,28 @@
  */
 package cih;
 
+import cci.GerenciadorCIH;
+import cdp.Login;
+import java.sql.SQLException;
+import java.util.List;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Anderson
  */
 public class JFLogin extends javax.swing.JFrame {
 
-    /**
-     * Creates new form JFLogin
-     */
-    public JFLogin() {
+     private final GerenciadorCIH gerCCI;
+
+
+    public JFLogin(java.awt.Frame parent,boolean modal, GerenciadorCIH ger,Boolean flag) {
         initComponents();
+        this.setResizable(false);
+        this.setLocationRelativeTo(null);
+        gerCCI = ger;
+       
+        
     }
 
     /**
@@ -31,9 +42,8 @@ public class JFLogin extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         txtUsuario = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        txtSenha = new javax.swing.JTextField();
         jbLogar = new javax.swing.JButton();
-        jbSair = new javax.swing.JButton();
+        txtSenha = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -49,29 +59,33 @@ public class JFLogin extends javax.swing.JFrame {
 
         jLabel2.setText("Senha");
 
-        jbLogar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cih/image/checked.png"))); // NOI18N
+        jbLogar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/checked.png"))); // NOI18N
         jbLogar.setText("Entrar");
+        jbLogar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbLogarActionPerformed(evt);
+            }
+        });
 
-        jbSair.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cih/image/error.png"))); // NOI18N
-        jbSair.setText("Sair");
+        txtSenha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtSenhaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(33, 33, 33)
+                .addGap(132, 132, 132)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jbLogar)
-                        .addGap(41, 41, 41)
-                        .addComponent(jbSair))
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jLabel2)
-                        .addComponent(jLabel1)
-                        .addComponent(txtUsuario)
-                        .addComponent(txtSenha, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)))
-                .addContainerGap(15, Short.MAX_VALUE))
+                    .addComponent(jbLogar, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel1)
+                    .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(165, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -82,16 +96,14 @@ public class JFLogin extends javax.swing.JFrame {
                 .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(8, 8, 8)
+                .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jbLogar)
-                    .addComponent(jbSair))
-                .addContainerGap(103, Short.MAX_VALUE))
+                .addComponent(jbLogar)
+                .addContainerGap(146, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel2, java.awt.BorderLayout.PAGE_START);
+        getContentPane().add(jPanel2, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -99,6 +111,37 @@ public class JFLogin extends javax.swing.JFrame {
     private void txtUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsuarioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtUsuarioActionPerformed
+
+    private void jbLogarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbLogarActionPerformed
+        
+        String login = txtUsuario.getText();
+        String senha = String.valueOf(txtSenha.getPassword());
+        List<Login> lista = null;
+        try
+        {
+            lista = gerCCI.getGerCDP().listarLogin();
+        } catch (SQLException ex)
+        {
+            JOptionPane.showMessageDialog(this, "Erro " + ex.getMessage());
+        }
+        for (int i = 0; i < lista.size(); i++)
+        {
+            if (lista.get(i).getLogin().equals(login)
+                    && lista.get(i).getSenha().equals(senha))
+            {
+                gerCCI.janelaPrincipal();
+                JFLogin.this.dispose();
+            } else
+            {
+                JOptionPane.showMessageDialog(this, "Login ou senha está incorreto");
+            }
+            
+        }
+    }//GEN-LAST:event_jbLogarActionPerformed
+
+    private void txtSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSenhaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtSenhaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -121,12 +164,7 @@ public class JFLogin extends javax.swing.JFrame {
         }
         //</editor-fold>
         
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> {
-            new JFLogin().setVisible(true);
-        });
+ 
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -134,8 +172,7 @@ public class JFLogin extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JButton jbLogar;
-    private javax.swing.JButton jbSair;
-    private javax.swing.JTextField txtSenha;
+    private javax.swing.JPasswordField txtSenha;
     private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
 }

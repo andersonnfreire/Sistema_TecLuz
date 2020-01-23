@@ -6,45 +6,37 @@
 package dao;
 
 import cdp.Juridico;
+import cdp.Servico;
+import hibernate.ConexaoHibernate;
 import java.sql.SQLException;
 import java.util.List;
 import org.hibernate.Criteria;
-import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
-public class FornecedorDAO {
-    public FornecedorDAO() throws ClassNotFoundException, SQLException
-    {
+public class FornecedorDAO extends GenericDAO{
 
+    public FornecedorDAO(){
+         super();
     }
-    public List pesquisarNome(String nomePesq) throws SQLException
-    {
-        Session sessao = null;
-        List<Juridico> lista = null;
-        try
-        {
-            sessao = hibernate.ConexaoHibernate.getSessionFactory().openSession();
-            sessao.beginTransaction();
 
-            Criteria consulta;
-            consulta = sessao.createCriteria(Juridico.class);
+    public List<Juridico>pesquisarNome(String nomePesq) throws SQLException {
+        Session sessao = ConexaoHibernate.getSessionFactory().openSession();
+        sessao.beginTransaction();
+        
+        Criteria cons = sessao.createCriteria(Juridico.class);
+       
+        cons.add(  Restrictions.like("CNPJ", nomePesq + "%" )  );
 
-            consulta.add(Restrictions.like("CNPJ", "%" + nomePesq + "%"));
-            lista = consulta.list();
-
-            sessao.getTransaction().commit();
-
-        } catch (HibernateException he)
-        {
-            sessao.getTransaction().rollback();
-        } finally
-        {
-            if (sessao != null)
-            {
-                sessao.close();
-            }
-            return lista;
-        }
+        // cons.add( Restrictions.sqlRestriction( "nome like '" + pesq + "%'" )  );
+        
+        cons.addOrder( Order.asc("CNPJ") );
+        
+        List lista = cons.list();
+      
+        sessao.getTransaction().commit();
+        sessao.close();
+        return lista;
     }
 }

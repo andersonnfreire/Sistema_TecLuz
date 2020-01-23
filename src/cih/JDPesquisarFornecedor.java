@@ -20,7 +20,7 @@ public class JDPesquisarFornecedor extends javax.swing.JDialog {
     private Juridico JuridicoSelecionado;
     
     public JDPesquisarFornecedor(java.awt.Frame parent, boolean modal,GerenciadorCIH ger) {
-    //    this.setLocationRelativeTo(null);
+        this.setLocationRelativeTo(null);
         gerCCI = ger;
         initComponents();
         JuridicoSelecionado = null;
@@ -67,7 +67,7 @@ public class JDPesquisarFornecedor extends javax.swing.JDialog {
 
             },
             new String [] {
-                "CNPJ", "Razão Social"
+                "Código", "CNPJ", "Razão Social"
             }
         ));
         tabPesquisarFornecedor.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -89,9 +89,7 @@ public class JDPesquisarFornecedor extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addComponent(btnPesquisarFornecedor)
                 .addContainerGap(297, Short.MAX_VALUE))
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jScrollPane2)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -151,13 +149,13 @@ public class JDPesquisarFornecedor extends javax.swing.JDialog {
         int linha = tabPesquisarFornecedor.getSelectedRow();
         try
         {
-            JuridicoSelecionado = (Juridico) tabPesquisarFornecedor.getValueAt(linha, 0);
+            JuridicoSelecionado = (Juridico) tabPesquisarFornecedor.getValueAt(linha, 1);
             this.setVisible(false);
         } catch (Exception ex)
         {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "ERRO", JOptionPane.ERROR_MESSAGE);
         }
-
+        
         gerCCI.carregarAlterarFornecedor(JuridicoSelecionado);
     }//GEN-LAST:event_tabPesquisarFornecedorMouseClicked
 

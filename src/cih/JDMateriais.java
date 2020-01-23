@@ -10,9 +10,6 @@ import cdp.Juridico;
 import cdp.Materiais;
 import java.awt.HeadlessException;
 import java.sql.SQLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
@@ -28,25 +25,16 @@ public class JDMateriais extends javax.swing.JDialog {
     private Materiais mat;
     private Juridico juridico;
     private Boolean flag;
-    
-    
+
     public JDMateriais(javax.swing.JDialog parent, boolean modal, GerenciadorCIH ger, Boolean flag) {
         this.setLocationRelativeTo(null);
         gerCCI = ger;
         initComponents();
         this.flag = flag;
         this.setResizable(false);
-        if (flag == true)
-        {
-            btnConfirmar.setVisible(false);
-
-        } else
-        {
-            btnNovo.setVisible(false);
-        }
     }
-    public JDMateriais(javax.swing.JDialog parent, boolean modal, GerenciadorCIH ger, Boolean flag, Materiais mat)
-    {
+
+    public JDMateriais(javax.swing.JDialog parent, boolean modal, GerenciadorCIH ger, Boolean flag, Materiais mat) {
         this.setLocationRelativeTo(null);
         gerCCI = ger;
         initComponents();
@@ -54,20 +42,17 @@ public class JDMateriais extends javax.swing.JDialog {
         this.flag = flag;
         this.mat = mat;
 
-        if (flag == true)
-        {
-            btnConfirmar.setVisible(false);
-
-        } else
-        {
-            btnNovo.setVisible(false);
+        if (!flag) {
+            btnNovo.setMnemonic('S');
+            btnNovo.setText("Salvar");
         }
-
+        
         txtNome.setText(mat.getNome());
         txtMarca.setText(mat.getMarca());
         spinQuantidade.setValue(mat.getQuantidade_estoque());
         txtValorCusto.setText(String.valueOf(mat.getValorCusto()));
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -85,8 +70,6 @@ public class JDMateriais extends javax.swing.JDialog {
         jLabel5 = new javax.swing.JLabel();
         cmbFornecedores = new javax.swing.JComboBox<>();
         btnNovo = new javax.swing.JButton();
-        btnConfirmar = new javax.swing.JButton();
-        btnAlterar = new javax.swing.JButton();
         btnLimpar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
 
@@ -143,7 +126,7 @@ public class JDMateriais extends javax.swing.JDialog {
                             .addComponent(spinQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtValorCusto)
                             .addComponent(cmbFornecedores, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap(185, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
@@ -180,6 +163,7 @@ public class JDMateriais extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        btnNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/checked.png"))); // NOI18N
         btnNovo.setMnemonic('N');
         btnNovo.setText("Novo");
         btnNovo.addActionListener(new java.awt.event.ActionListener() {
@@ -188,15 +172,7 @@ public class JDMateriais extends javax.swing.JDialog {
             }
         });
 
-        btnConfirmar.setText("Confirmar");
-
-        btnAlterar.setText("Alterar");
-        btnAlterar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAlterarActionPerformed(evt);
-            }
-        });
-
+        btnLimpar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/eraser.png"))); // NOI18N
         btnLimpar.setText("Limpar");
         btnLimpar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -204,6 +180,7 @@ public class JDMateriais extends javax.swing.JDialog {
             }
         });
 
+        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/error.png"))); // NOI18N
         btnCancelar.setText("Cancelar");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -216,20 +193,18 @@ public class JDMateriais extends javax.swing.JDialog {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnNovo)
+                        .addGap(34, 34, 34)
+                        .addComponent(btnNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(btnConfirmar)
-                        .addGap(16, 16, 16)
-                        .addComponent(btnAlterar)
+                        .addComponent(btnLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(btnLimpar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnCancelar)))
-                .addContainerGap(21, Short.MAX_VALUE))
+                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -238,9 +213,7 @@ public class JDMateriais extends javax.swing.JDialog {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAlterar)
                     .addComponent(btnNovo)
-                    .addComponent(btnConfirmar)
                     .addComponent(btnLimpar)
                     .addComponent(btnCancelar))
                 .addContainerGap(27, Short.MAX_VALUE))
@@ -266,10 +239,6 @@ public class JDMateriais extends javax.swing.JDialog {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtMarcaActionPerformed
 
-    private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnAlterarActionPerformed
-
     private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
         spinQuantidade.setValue(0);
         txtNome.setText("");
@@ -278,23 +247,32 @@ public class JDMateriais extends javax.swing.JDialog {
     }//GEN-LAST:event_btnLimparActionPerformed
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
-         try {
+        try {
             String nome = txtNome.getText();
 
             String marca = txtMarca.getText();
             int qtd = (int) spinQuantidade.getValue();
             String valorCusto = txtValorCusto.getText();
-            Juridico juridico = (Juridico)cmbFornecedores.getSelectedItem();
+            Juridico juridico = (Juridico) cmbFornecedores.getSelectedItem();
             // VALIDAR OS CAMPOS
             String msgErro = "";
             if ("".equals(nome)) {
                 msgErro = msgErro + "NOME inválido!\n";
             }
             double valor = Double.parseDouble(valorCusto);
-            int idMaterial = gerCCI.getGerCDP().inserirMaterial(nome, marca, qtd, valor, juridico);
 
-                    JOptionPane.showMessageDialog(this, "Material "
-                            + idMaterial + " inserido com sucesso.");
+            if (((JButton) evt.getSource()).getMnemonic() == 'N') {
+                int idMaterial = gerCCI.getGerCDP().inserirMaterial(nome, marca, qtd, valor, juridico);
+
+                JOptionPane.showMessageDialog(this, "Material "
+                        + idMaterial + " inserido com sucesso.");
+            } else {
+                int idPessoaJ = gerCCI.getGerCDP().alterarMaterial(mat.getCodigo(), nome, marca, qtd, valor, juridico);
+
+                JOptionPane.showMessageDialog(this, "MAterial "
+                        + idPessoaJ + " alterado com sucesso.");
+
+            }
 
         } catch (NumberFormatException erro) {
             JOptionPane.showMessageDialog(this, "Número da casa inválido!");
@@ -306,7 +284,7 @@ public class JDMateriais extends javax.swing.JDialog {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(JDMateriais.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
@@ -325,9 +303,7 @@ public class JDMateriais extends javax.swing.JDialog {
      * @param args the command line arguments
      */
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAlterar;
     private javax.swing.JButton btnCancelar;
-    private javax.swing.JButton btnConfirmar;
     private javax.swing.JButton btnLimpar;
     private javax.swing.JButton btnNovo;
     private javax.swing.JComboBox<String> cmbFornecedores;

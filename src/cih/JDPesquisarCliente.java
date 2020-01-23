@@ -62,7 +62,7 @@ public class JDPesquisarCliente extends javax.swing.JDialog {
 
             },
             new String [] {
-                "Nome", "CPF", "Email", "Ramo de Trabalho"
+                "Código", "Nome", "CPF", "Email", "Ramo de Trabalho"
             }
         ));
         tabPesquisarCliente.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -145,9 +145,7 @@ public class JDPesquisarCliente extends javax.swing.JDialog {
 
     private void btnPesquisarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarClienteActionPerformed
         try {
-            
-       
-            gerCCI.getGerCDP().pesquisarCliente(tabPesquisarCliente, txtNome.getText());
+             gerCCI.getGerCDP().pesquisarCliente(tabPesquisarCliente, txtNome.getText());
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, ex, "ERRO", JOptionPane.ERROR_MESSAGE);
         }
@@ -158,14 +156,14 @@ public class JDPesquisarCliente extends javax.swing.JDialog {
 
         try
         {
-            fisico = (Fisico) tabPesquisarCliente.getValueAt(linha, 0);
+            fisico = (Fisico) tabPesquisarCliente.getValueAt(linha, 1);
             this.setVisible(false);
         } catch (Exception ex)
         {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "ERRO", JOptionPane.ERROR_MESSAGE);
         }
         
-        //gerCCI.carregarAlterarCliente(fisico);
+        gerCCI.carregarAlterarCliente(fisico);
     }//GEN-LAST:event_tabPesquisarClienteMouseClicked
 
     private void PesquisarCliente(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PesquisarCliente

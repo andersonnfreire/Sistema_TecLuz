@@ -4,10 +4,14 @@ package cdp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
 /**
  *
@@ -24,27 +28,33 @@ public class Fisico extends Pessoa {
     @Temporal(TemporalType.DATE)
     private Date dataNasc;
     
+    @ManyToOne(fetch = FetchType.EAGER)
+    @Cascade(CascadeType.SAVE_UPDATE)
+    private Cep cep;
+    
     private String ramoTrabalho;
     
     public Fisico() {
         super();
     }
-    public Fisico(String nome, String CPF, String Sexo, Date dataNasc, String ramoTrabalho, int codigo, String email, String telefone, Cep cep) {
-        super(codigo, email, telefone, cep);
+    public Fisico(int codigo,String nome, String CPF, String Sexo, Date dataNasc, String ramoTrabalho, String email, String telefone, Cep cep) {
+        super(codigo, email, telefone);
         this.nome = nome;
         this.CPF = CPF;
         this.Sexo = Sexo;
         this.dataNasc = dataNasc;
         this.ramoTrabalho = ramoTrabalho;
+        this.cep = cep;
     }
 
     public Fisico(String nome, String CPF, String Sexo, Date dataNasc, String ramoTrabalho, String email, String telefone, Cep cep) {
-        super(email, telefone, cep);
+        super(email, telefone);
         this.nome = nome;
         this.CPF = CPF;
         this.Sexo = Sexo;
         this.dataNasc = dataNasc;
         this.ramoTrabalho = ramoTrabalho;
+        this.cep = cep;
     }
 
     public String getNome() {
@@ -88,6 +98,17 @@ public class Fisico extends Pessoa {
     public void setRamoTrabalho(String ramoTrabalho) {
         this.ramoTrabalho = ramoTrabalho;
     }
+
+    public Cep getCep()
+    {
+        return cep;
+    }
+
+
+    public void setCep(Cep cep)
+    {
+        this.cep = cep;
+    }
     @Override
     public String toString()
     {
@@ -97,7 +118,7 @@ public class Fisico extends Pessoa {
     {
         return new Object[]
         {
-            this, CPF, getDataNasc(),getRamoTrabalho()
+             getCodigo(),this,getCPF(), getDataNasc(),getRamoTrabalho()
         };
     }
 }

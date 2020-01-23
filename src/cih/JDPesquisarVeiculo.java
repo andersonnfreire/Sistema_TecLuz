@@ -142,7 +142,7 @@ public class JDPesquisarVeiculo extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "ERRO", JOptionPane.ERROR_MESSAGE);
         }
 
-        //gerCCI.carregarAlterarVeiculo(vei);
+        gerCCI.carregarAlterarVeiculos(vei);
     }//GEN-LAST:event_tabVeiculoMouseClicked
 
     /**

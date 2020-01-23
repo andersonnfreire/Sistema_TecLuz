@@ -29,12 +29,6 @@ public class JDVeiculo extends javax.swing.JDialog {
         this.setResizable(false);
         this.setLocationRelativeTo(null);
 
-        if (flag == true) {
-            btnConfirmar.setVisible(false);
-
-        } else {
-            btnNovo.setVisible(false);
-        }
     }
 
     public JDVeiculo(javax.swing.JDialog parent, boolean modal, GerenciadorCIH ger, Boolean flag, Veiculos vei) {
@@ -45,18 +39,18 @@ public class JDVeiculo extends javax.swing.JDialog {
         this.flag = flag;
         this.vei = vei;
 
-        if (flag == true) {
-            btnConfirmar.setVisible(false);
-
-        } else {
-            btnNovo.setVisible(false);
+        if (!flag) {
+            btnNovo.setMnemonic('S');
+            btnNovo.setText("Salvar");
         }
 
         txtModelo.setText(vei.getModelo());
         txtMarca.setText(vei.getMarca());
         spinAno.setValue(vei.getAno());
         txtPlaca.setText(String.valueOf(vei.getPlaca()));
-        txtDataCompra.setText(String.valueOf(vei.getDtCompra()));
+        
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        txtDataCompra.setText(formato.format(vei.getDtCompra()));
     }
 
     @SuppressWarnings("unchecked")
@@ -76,9 +70,7 @@ public class JDVeiculo extends javax.swing.JDialog {
         jLabel5 = new javax.swing.JLabel();
         txtDataCompra = new javax.swing.JTextField();
         btnNovo = new javax.swing.JButton();
-        btnConfirmar = new javax.swing.JButton();
         jbLimpar = new javax.swing.JButton();
-        jbAlterar2 = new javax.swing.JButton();
         jbCancelar2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -154,6 +146,7 @@ public class JDVeiculo extends javax.swing.JDialog {
                 .addGap(38, 38, 38))
         );
 
+        btnNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/checked.png"))); // NOI18N
         btnNovo.setMnemonic('N');
         btnNovo.setText("Novo");
         btnNovo.addActionListener(new java.awt.event.ActionListener() {
@@ -162,13 +155,7 @@ public class JDVeiculo extends javax.swing.JDialog {
             }
         });
 
-        btnConfirmar.setText("Confirmar");
-        btnConfirmar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnConfirmarActionPerformed(evt);
-            }
-        });
-
+        jbLimpar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/eraser.png"))); // NOI18N
         jbLimpar.setText("Limpar");
         jbLimpar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -176,13 +163,7 @@ public class JDVeiculo extends javax.swing.JDialog {
             }
         });
 
-        jbAlterar2.setText("Alterar");
-        jbAlterar2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbAlterar2ActionPerformed(evt);
-            }
-        });
-
+        jbCancelar2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/error.png"))); // NOI18N
         jbCancelar2.setText("Cancelar");
         jbCancelar2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -195,19 +176,16 @@ public class JDVeiculo extends javax.swing.JDialog {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnNovo)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnConfirmar)
-                        .addGap(16, 16, 16)
-                        .addComponent(jbAlterar2)
-                        .addGap(28, 28, 28)
-                        .addComponent(jbLimpar)
-                        .addGap(18, 18, 18)
-                        .addComponent(jbCancelar2)))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(46, 46, 46)
+                .addComponent(jbLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
+                .addComponent(jbCancelar2, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(50, 50, 50))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -215,14 +193,10 @@ public class JDVeiculo extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jbAlterar2)
-                        .addComponent(btnNovo)
-                        .addComponent(btnConfirmar))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jbLimpar)
-                        .addComponent(jbCancelar2)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnNovo)
+                    .addComponent(jbLimpar)
+                    .addComponent(jbCancelar2))
                 .addContainerGap())
         );
 
@@ -230,7 +204,9 @@ public class JDVeiculo extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -248,10 +224,6 @@ public class JDVeiculo extends javax.swing.JDialog {
         txtDataCompra.setText("");
 
     }//GEN-LAST:event_jbLimparActionPerformed
-
-    private void jbAlterar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAlterar2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jbAlterar2ActionPerformed
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
         try {
@@ -283,13 +255,8 @@ public class JDVeiculo extends javax.swing.JDialog {
         JDVeiculo.this.dispose();
     }//GEN-LAST:event_jbCancelar2ActionPerformed
 
-    private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnConfirmarActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnConfirmar;
     private javax.swing.JButton btnNovo;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -298,7 +265,6 @@ public class JDVeiculo extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JButton jbAlterar2;
     private javax.swing.JButton jbCancelar2;
     private javax.swing.JButton jbLimpar;
     private javax.swing.JSpinner spinAno;

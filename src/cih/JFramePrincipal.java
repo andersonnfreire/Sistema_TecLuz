@@ -6,8 +6,6 @@
 package cih;
 
 import cci.GerenciadorCIH;
-import cdp.Materiais;
-import cdp.Venda;
 
 /**
  *
@@ -33,6 +31,7 @@ public class JFramePrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jButton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
@@ -50,6 +49,14 @@ public class JFramePrincipal extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(221, 65, 67));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jButton1.setText("Sair");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 270, 70, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/tecluz.jpg"))); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 450, 304));
@@ -181,6 +188,11 @@ public class JFramePrincipal extends javax.swing.JFrame {
        gerCCI.janelaPesqFor();
     }//GEN-LAST:event_menuFornecedorActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+       JFramePrincipal.this.dispose();
+       gerCCI.janelaLogin();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem CadastrarClienteFornercedor;
@@ -191,6 +203,7 @@ public class JFramePrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem JMPesquisarMateriais;
     private javax.swing.JMenuItem JMPesquisarServico;
     private javax.swing.JMenuItem JMPesquisarVeiculo;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;

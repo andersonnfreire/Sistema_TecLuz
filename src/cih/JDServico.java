@@ -31,14 +31,6 @@ public class JDServico extends javax.swing.JDialog {
         this.setResizable(false);
         this.setLocationRelativeTo(null);
 
-        rbNao.setSelected(true);
-
-        if (flag == true) {
-            btnConfirmar.setVisible(false);
-
-        } else {
-            btnNovo.setVisible(false);
-        }
     }
 
     public JDServico(javax.swing.JDialog parent, boolean modal,
@@ -51,17 +43,19 @@ public class JDServico extends javax.swing.JDialog {
         this.ser = ser;
         this.flag = flag;
 
-        if (flag == true) {
-            btnConfirmar.setVisible(false);
-
-        } else {
-            btnNovo.setVisible(false);
+        if (!flag) {
+            btnNovo.setMnemonic('S');
+            btnNovo.setText("Salvar");
         }
+        
         cmbCliente.setSelectedItem(ser.getFis());
         cmbTipoServico.setSelectedItem(ser.getTipServico());
         cmbVeiculo.setSelectedItem(ser.getVei());
-        txtDataInicio.setText(ser.getDataInicio().toString());
-        txtDataEntrega.setText(ser.getPrevisaoDataFim().toString());
+        
+        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+        txtDataInicio.setText(formato.format(ser.getDataInicio()));
+        txtDataEntrega.setText(formato.format(ser.getPrevisaoDataFim()));
+        
         txtDistancia.setText(ser.getDistancia());
         cmbStatus.setSelectedItem(ser.getStatus());
     }
@@ -93,8 +87,6 @@ public class JDServico extends javax.swing.JDialog {
         jLabel7 = new javax.swing.JLabel();
         txtDataEntrega = new javax.swing.JTextField();
         btnNovo = new javax.swing.JButton();
-        btnConfirmar = new javax.swing.JButton();
-        jbAlterar2 = new javax.swing.JButton();
         jbLimpar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
 
@@ -157,7 +149,7 @@ public class JDServico extends javax.swing.JDialog {
                 .addComponent(jLabel14)
                 .addGap(18, 18, 18)
                 .addComponent(txtDistancia, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -260,6 +252,7 @@ public class JDServico extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        btnNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/checked.png"))); // NOI18N
         btnNovo.setMnemonic('N');
         btnNovo.setText("Novo");
         btnNovo.addActionListener(new java.awt.event.ActionListener() {
@@ -268,15 +261,7 @@ public class JDServico extends javax.swing.JDialog {
             }
         });
 
-        btnConfirmar.setText("Confirmar");
-
-        jbAlterar2.setText("Alterar");
-        jbAlterar2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbAlterar2ActionPerformed(evt);
-            }
-        });
-
+        jbLimpar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/eraser.png"))); // NOI18N
         jbLimpar.setText("Limpar");
         jbLimpar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -284,6 +269,7 @@ public class JDServico extends javax.swing.JDialog {
             }
         });
 
+        btnCancelar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/error.png"))); // NOI18N
         btnCancelar.setText("Cancelar");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -295,20 +281,16 @@ public class JDServico extends javax.swing.JDialog {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnNovo)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnConfirmar)
-                        .addGap(16, 16, 16)
-                        .addComponent(jbAlterar2)
-                        .addGap(28, 28, 28)
-                        .addComponent(jbLimpar)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnCancelar)))
+                        .addComponent(btnNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jbLimpar, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(67, 67, 67)
+                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -317,21 +299,19 @@ public class JDServico extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jbAlterar2)
-                        .addComponent(btnNovo)
-                        .addComponent(btnConfirmar))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jbLimpar)
-                        .addComponent(btnCancelar))))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnNovo)
+                    .addComponent(jbLimpar)
+                    .addComponent(btnCancelar)))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 27, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -346,10 +326,6 @@ public class JDServico extends javax.swing.JDialog {
     private void cmbClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbClienteActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbClienteActionPerformed
-
-    private void jbAlterar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAlterar2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jbAlterar2ActionPerformed
 
     private void jbLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbLimparActionPerformed
         cmbCliente.setSelectedItem(0);
@@ -391,12 +367,12 @@ public class JDServico extends javax.swing.JDialog {
             
             
             if (((JButton) evt.getSource()).getMnemonic() == 'N') {
-                int idServico = gerCCI.getGerCDP().inserirServico(nomeCliente, status, veiculo, Distancia, dataEntrega, valorTotal, tipoServico);
+                int idServico = gerCCI.getGerCDP().inserirServico(nomeCliente, status, veiculo, Distancia, dataEntrega, dataInicio,valorTotal, tipoServico);
                 JOptionPane.showMessageDialog(this, "Servico " + idServico + " inserido com sucesso.");
 
             } else {
-                //int idServico = gerCCI.getGerCDP().alterarServico(ser.getCodigo(), nomeCliente, tipoServico, status, veiculo, dataInicio, dataEntrega, extensao, Distancia, valorTotal);
-                //JOptionPane.showMessageDialog(this, "Material " + idServico + " alterado com sucesso.");
+                int idServico = gerCCI.getGerCDP().alterarServico(ser.getCodigo(), nomeCliente, status, veiculo, Distancia,dataEntrega,dataInicio,valorTotal,tipoServico);
+                JOptionPane.showMessageDialog(this, "Material " + idServico + " alterado com sucesso.");
 
             }
         } catch (SQLException | ClassNotFoundException | HeadlessException erro) {
@@ -436,7 +412,6 @@ public class JDServico extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
-    private javax.swing.JButton btnConfirmar;
     private javax.swing.JButton btnNovo;
     private javax.swing.JComboBox<String> cmbCliente;
     private javax.swing.JComboBox<String> cmbStatus;
@@ -454,7 +429,6 @@ public class JDServico extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JButton jbAlterar2;
     private javax.swing.JButton jbLimpar;
     private javax.swing.JRadioButton rbNao;
     private javax.swing.JRadioButton rbSim;

@@ -19,9 +19,10 @@ public class JDPesquisarMaterial extends javax.swing.JDialog {
     private GerenciadorCIH gerCCI;
     private Materiais mate;
     public JDPesquisarMaterial(java.awt.Frame parent, boolean modal,GerenciadorCIH ger) {
-   //     this.setLocationRelativeTo(null);
-        gerCCI = ger;
         initComponents();
+        this.setLocationRelativeTo(null);
+        gerCCI = ger;
+        
         mate = null;
     }
     public Materiais getMateriais()
@@ -156,7 +157,7 @@ public class JDPesquisarMaterial extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "ERRO", JOptionPane.ERROR_MESSAGE);
         }
         
-        //gerCCI.carregarAlterarMateriais(mate);
+        gerCCI.carregarAlterarMateriais(mate);
     }//GEN-LAST:event_tabMaterialMouseClicked
 
     /**

@@ -151,11 +151,16 @@ public class Servico implements Serializable{
     public void setValorTotal(double valorTotal) {
         this.valorTotal = valorTotal;
     }
+    @Override
+    public String toString()
+    {
+        return getTipServico();
+    }
      public Object[] toArray()
     {
         return new Object[]
         {
-            getFis(),getTipServico(),getDataInicio(),getPrevisaoDataFim()
+            getCodigo(),getFis(),this,getDataInicio(),getPrevisaoDataFim()
         };
     }
   

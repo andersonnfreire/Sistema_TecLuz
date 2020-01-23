@@ -53,7 +53,7 @@ public class JDPesquisarServico extends javax.swing.JDialog {
 
             },
             new String [] {
-                "Cliente", "Tipo de Serviço", "Data de Inicio", "Data de Entrega"
+                "Código", "Cliente", "Tipo de Serviço", "Data de Inicio", "Data de Entrega"
             }
         ));
         tabServico.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -129,24 +129,31 @@ public class JDPesquisarServico extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPesquisarServicoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarServicoActionPerformed
-        int codigo = Integer.parseInt(txtCodigo.getText());
-        try {
+        
+        try{
+            int codigo = Integer.parseInt(txtCodigo.getText());
             gerCCI.getGerCDP().pesquisarServico(tabServico,codigo);
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, ex, "ERRO", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "ERRO não previsto! " + ex.getMessage());
+        }catch(NumberFormatException num)
+        {
+            JOptionPane.showMessageDialog(this, "Informe um valor Inteiro ! " + num.getMessage());
         }
     }//GEN-LAST:event_btnPesquisarServicoActionPerformed
 
     private void tabServicoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabServicoMouseClicked
-       int linha = tabServico.getSelectedRow();
+
         try {
-            ser = (Servico) tabServico.getValueAt(linha, 0);
+            int linha = tabServico.getSelectedRow();
+             System.out.println("1");
+            ser = (Servico) tabServico.getValueAt(linha, 2);
+            System.out.println("2");
             this.setVisible(false);
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(this, ex.getMessage(), "ERRO", JOptionPane.ERROR_MESSAGE);
         }
-
-        //gerCCI.carregarAlterarServico(ser);
+       
+        gerCCI.carregarAlterarServicos(ser);
     }//GEN-LAST:event_tabServicoMouseClicked
 
     /**

@@ -8,16 +8,15 @@
     <property name="hibernate.connection.username">root</property>
     <property name="hibernate.hbm2ddl.auto">update</property>
     <property name="hibernate.show_sql">true</property>
-    <mapping class="cdp.Cep" />
-    <mapping class="cdp.Juridico"/>
+    <mapping class="cdp.Login" />
     <mapping class="cdp.Pessoa" />
     <mapping class="cdp.Endereco" />
-    <mapping class="cdp.Fisico" />
-    <mapping class="cdp.Venda" />
-    <mapping class="cdp.ItemVenda" />
     <mapping class="cdp.Veiculos"/>
+    <mapping class="cdp.Cep" />
+    <mapping class="cdp.Juridico"/>
+    <mapping class="cdp.Fisico" />
     <mapping class="cdp.Materiais" />
     <mapping class="cdp.Servico" />
-
+    
   </session-factory>
 </hibernate-configuration>

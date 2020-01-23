@@ -7,6 +7,9 @@ package cci;
 
 import cdp.Fisico;
 import cdp.Juridico;
+import cdp.Materiais;
+import cdp.Servico;
+import cdp.Veiculos;
 import cih.ClasseErro;
 import cih.JDCliFor;
 import cih.JDMateriais;
@@ -17,6 +20,7 @@ import cih.JDPesquisarServico;
 import cih.JDPesquisarVeiculo;
 import cih.JDServico;
 import cih.JDVeiculo;
+import cih.JFLogin;
 import cih.JFramePrincipal;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
@@ -39,7 +43,9 @@ public final class GerenciadorCIH {
     private JDPesquisarMaterial objPesqMaterial;
     private JDPesquisarServico objPesqServico;
     private JFramePrincipal objTelaPrincipal;
+    private JFLogin objTelaLogin;
     private ClasseErro objClasseErro;
+
    
     public GerenciadorCIH() {
         try {
@@ -63,7 +69,7 @@ public final class GerenciadorCIH {
         objPesqVeiculo = null;
         objPesqMaterial = null;
         objPesqServico = null;
-        
+        objTelaLogin = null;
         objTelaPrincipal = null;
     }
 
@@ -76,12 +82,18 @@ public final class GerenciadorCIH {
     public void classeErro() {
         objClasseErro = new ClasseErro(objTelaPrincipal);
     }
-       
+    
+    
+    public void janelaLogin(){
+        objTelaLogin = new JFLogin(null, true, this, true);
+        objTelaLogin.setVisible(true);
+    }
+   
     public void janelaPrincipal(){
         objTelaPrincipal = new JFramePrincipal(null, true, this, true);
         objTelaPrincipal.setVisible(true);
     }
-
+    
     public void janelaCadCliente()
     {
         objClienteFornecedor = new JDCliFor(null, true, this, true);
@@ -143,17 +155,36 @@ public final class GerenciadorCIH {
         objPesqServico.setVisible(true);
     }
     
-    public void carregarAlterarCliente(Fisico fisico)
+    public void carregarAlterarCliente(Fisico fisicoAlterado)
     {
-        objClienteFornecedor = new JDCliFor(null, true, this, false,fisico,null);
+
+        objClienteFornecedor = new JDCliFor(null, true, this, false,fisicoAlterado,null);
         objClienteFornecedor.setVisible(true);
     }
-    public void carregarAlterarFornecedor(Juridico juridico)
+    public void carregarAlterarFornecedor(Juridico juridicoAlterado)
     {
-        objClienteFornecedor = new JDCliFor(null, true, this,false,null,juridico );
+
+        objClienteFornecedor = new JDCliFor(null, true, this,false,null,juridicoAlterado);
         objClienteFornecedor.setVisible(true);
     }
-   
+     public void carregarAlterarMateriais(Materiais materialAlterado)
+    {
+
+        objMateriais = new JDMateriais(null, true, this,false,materialAlterado);
+        objMateriais.setVisible(true);
+    }
+    public void carregarAlterarVeiculos(Veiculos veiculoAlterado)
+    {
+
+        objVeiculo = new JDVeiculo(null, true, this,false,veiculoAlterado);
+        objVeiculo.setVisible(true);
+    }
+    public void carregarAlterarServicos(Servico servicoAlterado)
+    {
+
+        objServico = new JDServico(null, true, this,false,servicoAlterado);
+        objServico.setVisible(true);
+    }
     public ClasseErro getObjClasseErro() {
         return objClasseErro;
     }
@@ -161,10 +192,13 @@ public final class GerenciadorCIH {
     public GerenciadorCDP getCtrlDom() {
         return gerCDP;
     }
+   
+   
+
     public static void main(String[] args) {
 
         GerenciadorCIH gerCCI = new GerenciadorCIH();
-        gerCCI.janelaPrincipal();
+        gerCCI.janelaLogin();
 
     }
 

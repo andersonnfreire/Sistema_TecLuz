@@ -6,7 +6,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import org.hibernate.annotations.Cascade;
 
 /**
  *
@@ -23,7 +25,9 @@ public class Cep implements Serializable
     private String numero;
 
     
-    @OneToOne(cascade=CascadeType.PERSIST)
+    @OneToOne
+    @JoinColumn(name = "id_Endereco")
+    @Cascade(org.hibernate.annotations.CascadeType.SAVE_UPDATE)
     private Endereco endereco;
 
     public Cep()
@@ -31,12 +35,6 @@ public class Cep implements Serializable
 
     }
 
-    public Cep(int codigo,String numero, Endereco endereco)
-    {
-        this.codigo = codigo;
-        this.numero = numero;
-        this.endereco = endereco;
-    }
     public Cep(String numero, Endereco endereco)
     {
         this.numero = numero;

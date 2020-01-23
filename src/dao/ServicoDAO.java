@@ -30,7 +30,6 @@ public class ServicoDAO extends GenericDAO{
         
         cons.add(  Restrictions.eq("codigo", codigo) );
 
-       
         
         cons.addOrder( Order.asc("codigo") );
    

@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.ManyToOne;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
 @Entity
 @Inheritance ( strategy = InheritanceType.JOINED)
@@ -20,23 +22,20 @@ public class Pessoa implements Serializable {
     private String email;
     private String telefone;
     
-    @ManyToOne(fetch = FetchType.EAGER)
-    private Cep cep;
+    
 
     public Pessoa() {
     }
 
-    public Pessoa(int codigo, String email, String telefone, Cep cep) {
+    public Pessoa(int codigo, String email, String telefone) {
         this.codigo = codigo;
         this.email = email;
         this.telefone = telefone;
-        this.cep = cep;
     }
 
-    public Pessoa(String email, String telefone, Cep cep) {
+    public Pessoa(String email, String telefone) {
         this.email = email;
         this.telefone = telefone;
-        this.cep = cep;
     }
 
     public int getCodigo() {
@@ -63,12 +62,4 @@ public class Pessoa implements Serializable {
         this.telefone = telefone;
     }
 
-    public Cep getCep() {
-        return cep;
-    }
-
-    public void setCep(Cep cep) {
-        this.cep = cep;
-    }
-    
 }

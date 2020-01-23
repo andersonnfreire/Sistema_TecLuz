@@ -7,10 +7,10 @@ import dao.ClienteDAO;
 import dao.GenericDAO;
 import cdp.Fisico;
 import cdp.Juridico;
+import cdp.Login;
 import cdp.Materiais;
 import cdp.Servico;
 import cdp.Veiculos;
-import cih.JFramePrincipal;
 import dao.FornecedorDAO;
 import dao.MateriaisDAO;
 import dao.ServicoDAO;
@@ -23,6 +23,7 @@ import java.util.Iterator;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -59,10 +60,7 @@ public class GerenciadorCDP {
         Cep objCep = new Cep(cep, objEndereco);
         Fisico objCli = new Fisico(nome, CPF, Sexo, dataNasc, ramoTrabalho, email, telefone, objCep);
   
-        genDAO.inserir(objEndereco);
-        
-        genDAO.inserir(objCep);
-          
+                  
         genDAO.inserir(objCli);
 
         return objCli.getCodigo();
@@ -73,14 +71,15 @@ public class GerenciadorCDP {
             String email, String telefone, String logradouro, String complemento, String numero,
             String bairro, String cidade, String estado, String cep) throws SQLException, ClassNotFoundException {
 
+        
+        
+        
         Endereco objEndereco = new Endereco(logradouro, complemento, numero, bairro, cidade, estado);
         Cep objCep = new Cep(cep, objEndereco);
-        Fisico objCli = new Fisico(nome, CPF, Sexo, dataNasc, ramoTrabalho, email, telefone, objCep);
+        Fisico objCli = new Fisico(id,nome, CPF, Sexo, dataNasc, ramoTrabalho, email, telefone, objCep);
 
-        genDAO.alterar(objEndereco);
-        
-        genDAO.alterar(objCep);
-        
+     
+   
         genDAO.alterar(objCli);
         
         
@@ -128,21 +127,23 @@ public class GerenciadorCDP {
 
     }
 
-    public int alterarPessoaJ(int id, String CNPJ,String razaoSocial,
+    public int alterarPessoaJ(int codigo,String CNPJ,String razaoSocial,
             String email, String telefone, String logradouro, String complemento, String numero,
-            String bairro, String cidade, String estado, String cep) throws SQLException, ClassNotFoundException {
+            String bairro, String cidade, String estado, String cep){
 
+        System.out.println("Endereco OK");
+       
+        
         Endereco objEndereco = new Endereco(logradouro, complemento, numero, bairro, cidade, estado);
-        Cep objCep = new Cep(cep, objEndereco);
-        Juridico objCliJ = new Juridico(CNPJ,razaoSocial, email, telefone, objCep);
 
+        Cep objCep = new Cep(cep, objEndereco);
         
-        genDAO.alterar(objEndereco);
-        
-        genDAO.alterar(objCep);
+        System.out.println("CEP Ok");
+        Juridico objCliJ = new Juridico(codigo,email,telefone,CNPJ,razaoSocial, objCep);
         
         genDAO.alterar(objCliJ);
         return objCliJ.getCodigo();
+        
     }
    
     public void pesquisarClienteJuridico(JTable tabela, String pesq) throws SQLException
@@ -161,7 +162,9 @@ public class GerenciadorCDP {
         {
             juridico = it.next();
             ((DefaultTableModel) tabela.getModel()).addRow(juridico.toArray());
+               
         }
+        
     }
     
  
@@ -194,7 +197,13 @@ public class GerenciadorCDP {
             ((DefaultTableModel) tabela.getModel()).addRow(material.toArray());
         }
     }
-    
+    public int alterarMaterial(int id,String nome,String marca,int quantidade,double valorCusto,Juridico juridico){
+
+       Materiais objMat = new Materiais(id,nome, marca, quantidade, valorCusto, juridico);
+
+        genDAO.alterar(objMat);
+        return objMat.getCodigo();
+    }
     
     public int inserirVeiculo(String modelo,String marca,int quant,String placa, Date dataCompra)
             throws SQLException, ClassNotFoundException {
@@ -210,7 +219,7 @@ public class GerenciadorCDP {
     public int alterarVeiculo(int id, String modelo,String marca,int quant,String placa, Date dataCompra) 
             throws SQLException, ClassNotFoundException {
 
-       Veiculos objVei = new Veiculos(modelo, marca,quant,placa,dataCompra);
+       Veiculos objVei = new Veiculos(id,modelo, marca,quant,placa,dataCompra);
 
         genDAO.alterar(objVei);
         return objVei.getCodigo();
@@ -234,10 +243,10 @@ public class GerenciadorCDP {
         }
     }
     
-    public int inserirServico(Fisico cli,String st,Veiculos veiculo,String distancia,Date dataEntrega,double valorTotal,String tipoServ)
+    public int inserirServico(Fisico cli,String st,Veiculos veiculo,String distancia,Date dataEntrega,Date dataInicio,double valorTotal,String tipoServ)
             throws SQLException, ClassNotFoundException {
 
-        Servico objServ = new Servico(cli, tipoServ, st, veiculo, dataEntrega, dataEntrega, distancia, distancia, valorTotal);
+        Servico objServ = new Servico(cli, tipoServ, st, veiculo, dataEntrega, dataInicio, distancia, distancia, valorTotal);
   
         genDAO.inserir(objServ);
 
@@ -245,22 +254,14 @@ public class GerenciadorCDP {
 
     }
 
-    public int alterarServico(int id, String nome, String CPF, String Sexo, Date dataNasc, String ramoTrabalho,
-            String email, String telefone, String logradouro, String complemento, String numero,
-            String bairro, String cidade, String estado, String cep) throws SQLException, ClassNotFoundException {
+    public int alterarServico(int id,Fisico cli,String st,Veiculos veiculo,String distancia,Date dataEntrega,Date dataInicio,double valorTotal,String tipoServ) throws SQLException, ClassNotFoundException {
 
-        Endereco objEndereco = new Endereco(logradouro, complemento, numero, bairro, cidade, estado);
-        Cep objCep = new Cep(cep, objEndereco);
-        Fisico objCli = new Fisico(nome, CPF, Sexo, dataNasc, ramoTrabalho, email, telefone, objCep);
-
-        genDAO.alterar(objEndereco);
+     
+        Servico objServ = new Servico(id,cli, tipoServ, st, veiculo, dataEntrega, dataInicio, distancia, distancia, valorTotal);
+  
+        genDAO.alterar(objServ);
         
-        genDAO.alterar(objCep);
-        
-        genDAO.alterar(objCli);
-        
-        
-        return objCli.getCodigo();
+        return objServ.getCodigo();
     }
     
     public void pesquisarServico(JTable tabela, int pesq) throws SQLException
@@ -282,43 +283,16 @@ public class GerenciadorCDP {
         }
     }
    
-     public List listarClientes() throws SQLException
-    {
-        return genDAO.listar(Fisico.class);
-    }
-    public List listarFornecedores() throws SQLException
-    {
-        return genDAO.listar(Juridico.class);
-    }
-    public List listaMaterial() throws SQLException
-    {
-        return genDAO.listar(Materiais.class);
-    }
-    public List listarVendas() throws SQLException
-    {
-        return genDAO.listar(JFramePrincipal.class);
-    }
-
     
-    /*
-    public int inserirVeiculo(String modelo,String marca,int quant,String placa, Date dataCompra)
-            throws SQLException, ClassNotFoundException {
-
-        System.err.println("Dados :" + modelo + marca + quant + placa+dataCompra);
-        Veiculos objVei = new Veiculos(modelo, marca,quant,placa,dataCompra);
-
-        genDAO.inserir(objVei);
-
-        return objVei.getCodigo();
-
-    }
-    
-    */
     public void carregarCombo( Class classe, JComboBox combo) {
         
         List lista;
         lista = genDAO.listar(classe);
         combo.setModel(new DefaultComboBoxModel( lista.toArray() ) );
+    }
+    public List listarLogin() throws SQLException
+    {
+        return genDAO.listar(Login.class);
     }
     private Date criarData(String strData) throws Exception {
         if (strData == null || "".equals(strData)) {
